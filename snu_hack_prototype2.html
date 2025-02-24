@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNUC Connect</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            color: #475;
+        }
+
+        body {
+            font-family: 'Kiwi Maru', serif;
+            background: #f4f4f4;
+        }
+
+        .menu-bar {
+            background: rgb(0,0,0);
+            text-align: center;
+            border-radius: 40px;
+        }
+
+        .menu-bar ul {
+            display: inline-flex;
+            list-style: none;
+            color: #fff;
+        }
+
+        .menu-bar ul li {
+            width: 120px;
+            margin: 15px;
+            padding: 15px;
+        }
+
+        .menu-bar ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .active, .menu-bar ul li:hover {
+            background: #2bab0d;
+            border-radius: 15px;
+        }
+
+        .menu-bar .fa {
+            margin-right: 8px;
+        }
+
+        .sub-menu-1 {
+            display: none;
+        }
+
+        .menu-bar ul li:hover .sub-menu-1 {
+            display: block;
+            position: absolute;
+            background: rgb(0,100,0);
+            margin-top: 15px;
+            margin-left: -15px;
+        }
+
+        .menu-bar ul li:hover .sub-menu-1 ul {
+            display: block;
+            margin: 10px;
+        }
+
+        .menu-bar ul li:hover .sub-menu-1 ul li {
+            width: 150px;
+            padding-bottom: 1px dotted #fff;
+            background: transparent;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .menu-bar ul li:hover .sub-menu-1 ul li:last-child {
+            border-bottom: none;
+        }
+
+        .menu-bar ul li:hover .sub-menu-1 ul li a:hover {
+            color: #b2ff00;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding-left: 25px;
+            padding-right: 25px;
+            border-radius: 50%;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .col-2 {
+            flex-basis: 50%;
+            min-width: 300px;
+        }
+
+        .col-2 img {
+            max-width: 100%;
+            padding: 50px 0;
+        }
+
+        .col-2 h1 {
+            font-size: 50px;
+            line-height: 60px;
+            margin: 25px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: orange;
+            color: #fff;
+            padding: 8px 30px;
+            margin: 30px 0;
+            border-radius: 30px;
+            transition: background 0.5s;
+        }
+
+        .btn:hover {
+            background: #563434;
+        }
+
+        .header {
+            background: radial-gradient(#0ff, #ffd6f6);
+        }
+
+        .header .row {
+            margin-top: 70px;
+        }
+
+        .category {
+            margin: 70px 0;
+        }
+
+        .col-3 {
+            flex-basis: 30%;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .col-3 img {
+            width: 100%;
+            border-radius: 25px;
+        }
+
+        .small-container {
+            max-width: 1500px;
+            margin: auto;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .col-4 {
+            flex-basis: 25%;
+            padding: 10px;
+            min-width: 200px;
+            margin-bottom: 50px;
+            transition: transform 0.3s;
+        }
+
+        .col-4 img {
+            width: 100%;
+            border-radius: 25px;
+            box-shadow: 0 0 20px 0px rgba(0,0,0,0.1);
+        }
+
+        .title2 {
+            text-align: left;
+            margin: 0 auto 80px;
+            position: relative;
+            margin-bottom: 50px;
+            line-height: 60px;
+            color: #425;
+        }
+
+        .title2::after {
+            content: '';
+            background: #B30003;
+            width: 80px;
+            height: 5px;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            transform: translateX(-50%);
+        }
+
+        .title {
+            text-align: center;
+            margin: 0 auto 80px;
+            position: relative;
+            line-height: 60px;
+            color: #000;
+        }
+
+        .title::after {
+            content: '';
+            background: #ff4466;
+            width: 80px;
+            height: 5px;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h4 {
+            color: #555;
+            font-weight: normal;
+        }
+
+        .col-4 p {
+            font-size: 14px;
+        }
+
+        .col-4:hover {
+            transform: translateY(-15px);
+        }
+
+        h1 {
+            width: 100px;
+            position: relative;
+            top: 20px;
+            cursor: pointer;
+        }
+
+        h1:before {
+            content: attr(data-count);
+            position: absolute;
+            color: white;
+            right: 16px;
+            font-size: 15px;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            background: red;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        h1.zero:before {
+            opacity: 1;
+        }
+
+        h1:hover {
+            background: #2bab0d;
+        }
+
+        .select {
+            width: 60%;
+            height: 580px;
+            background: #222;
+            position: absolute;
+            top: -1000px;
+            left: 20px;
+            transition: 0.5s;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .select.display {
+            top: 10px;
+        }
+
+        .select div {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            padding: 5px;
+            border: 1px solid white;
+            position: relative;
+            margin: 5px auto;
+        }
+
+        .select div img {
+            width: 300px;
+            height: 100%;
+        }
+
+        .select div p {
+            padding: 35px;
+            color: white;
+        }
+
+        .select div h4,
+        .select div button {
+            position: absolute;
+            left: 45%;
+            top: 50%;
+            color: white;
+        }
+
+        .select div button {
+            left: 60%;
+            top: 55%;
+        }
+
+        .select div span {
+            display: none;
+        }
+
+        .but {
+            padding: 5px;
+            background: red;
+            border: none;
+            outline: double;
+            outline-color: black;
+            color: #fafafa;
+            cursor: pointer;
+        }
+
+        .footer {
+            background: #000;
+            padding: 60px 0 20px;
+            color: #8a8a8a;
+            font-size: 16px;
+            border-top-left-radius: 125px;
+            border-top-right-radius: 125px;
+        }
+
+        .footer h3 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer li:hover {
+            text-decoration: underline;
+        }
+
+        .footer-col-1 {
+            min-width: 250;
+            margin-bottom: 20px;
+        }
+
+        .footer-col-1 img {
+            border-radius: 50px;
+            margin-left: 50px;
+        }
+
+        .footer-col-2 {
+            flex: 1;
+            text-align: center;
+        }
+
+        .footer-col-2 {
+            width: 180px;
+            margin-bottom: 20px;
+            margin-left: 700px;
+            color: #008000;
+        }
+
+        .footer-col-2 a {
+            width: 80px;
+            height: 80px;
+            text-decoration: none;
+            color: #000;
+            box-shadow: 0 0 20px 10px rgba(0,0,0,0.05);
+            margin: 0 10px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s;
+        }
+
+        .footer-col-2 a .fab {
+            font-size: 30px;
+            line-height: 80px;
+            position: relative;
+            z-index: 10;
+            transition: color 0.5s;
+            overflow: hidden;
+        }
+
+        .footer-col-2 a:hover::after {
+            top: 0;
+        }
+
+        .footer-col-2 a:hover .fab {
+            color: #fff;
+        }
+
+        .footer-col-2:hover {
+            transform: translateY(-10px);
+        }
+
+        .footer-col-4 {
+            margin-right: 600px;
+            padding-top: 100px;
+            text-align: center;
+        }
+
+        .footer-col-3 {
+            text-align: center;
+            margin-right: 100px;
+        }
+
+        .footer-col-3 li {
+            padding-bottom: 10px;
+        }
+
+        .footer-col-4 a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-col-3 a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-col-4 p {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Add your HTML content here -->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SNUC Connect</title>
+        <style>
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+    
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+    
+            @keyframes gradientBG {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+    
+            @keyframes rotateLogo {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+    
+            @keyframes slideInFromLeft {
+                0% { transform: translateX(-100%); opacity: 0; }
+                100% { transform: translateX(0); opacity: 1; }
+            }
+    
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+                background-size: 400% 400%;
+                animation: gradientBG 15s ease infinite, fadeIn 0.5s ease-out;
+                color: white;
+            }
+    
+            header {
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 1rem;
+                text-align: center;
+            }
+    
+            .logo {
+                width: 50px;
+                height: 50px;
+                background-color: white;
+                border-radius: 50%;
+                display: inline-block;
+                margin-right: 10px;
+                animation: rotateLogo 10s linear infinite;
+            }
+    
+            nav {
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 0.5rem;
+            }
+    
+            nav ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+            }
+    
+            nav ul li {
+                margin: 0 1rem;
+            }
+    
+            nav ul li a {
+                color: white;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+    
+            nav ul li a:hover {
+                color: #23d5ab;
+            }
+    
+            main {
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 1rem;
+                background-color: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+    
+            .event-card {
+                background-color: rgba(255, 255, 255, 0.2);
+                border-radius: 5px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                transition: transform 0.3s ease;
+                opacity: 0;
+            }
+    
+            .event-card.visible {
+                animation: slideInFromLeft 0.5s forwards;
+            }
+    
+            .event-card:hover {
+                transform: scale(1.05);
+            }
+    
+            button {
+                background-color: #23a6d5;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                border-radius: 5px;
+            }
+    
+            button:hover {
+                animation: pulse 0.5s infinite;
+                background-color: #23d5ab;
+            }
+    
+            .login-container {
+                max-width: 300px;
+                margin: 2rem auto;
+                padding: 1rem;
+                background-color: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+    
+            .login-container input, .login-container select {
+                width: 100%;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                border: none;
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo"></div>
+            <h1>SNUC Connect</h1>
+        </header>
+        <nav id="main-nav" style="display: none;">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#create">Create Event</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#logout" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+        <main id="content">
+            <!-- Content will be dynamically loaded here -->
+        </main>
+    
+        <script>
+            const content = document.getElementById('content');
+            const mainNav = document.getElementById('main-nav');
+            let currentUser = null;
+    
+            function loadContent(section) {
+                content.style.opacity = 0;
+                content.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    switch(section) {
+                        case 'login':
+                            content.innerHTML = `
+                                <div class="login-container">
+                                    <h2>Login</h2>
+                                    <form onsubmit="login(event)">
+                                        <input type="text" id="username" placeholder="Username" required><br>
+                                        <input type="password" id="password" placeholder="Password" required><br>
+                                        <select id="userType">
+                                            <option value="participant">Participant</option>
+                                            <option value="organizer">Organizer</option>
+                                            <option value="admin">Admin</option>
+                                        </select><br><br>
+                                        <button type="submit">Login</button>
+                                    </form>
+                                </div>
+                            `;
+                            break;
+                        case 'home':
+                            content.innerHTML = `<h2>Welcome, ${currentUser.type} ${currentUser.name}</h2><p>Manage your events with ease.</p>`;
+                            break;
+                        case 'events':
+                            content.innerHTML = `
+                                <h2>Upcoming Events</h2>
+                                <div class="event-card">
+                                    <h3>Tech Conference 2025</h3>
+                                    <p>Date: July 15-17, 2025</p>
+                                    <p>Location: Virtual</p>
+                                    <button onclick="registerEvent('Tech Conference 2025')">Register</button>
+                                </div>
+                                <div class="event-card">
+                                    <h3>Music Festival</h3>
+                                    <p>Date: August 5-7, 2025</p>
+                                    <p>Location: Central Park</p>
+                                    <button onclick="registerEvent('Music Festival')">Register</button>
+                                </div>
+                            `;
+                            initializeEventCards();
+                            break;
+                        case 'create':
+                            if (currentUser.type === 'participant') {
+                                content.innerHTML = '<h2>Access Denied</h2><p>Only organizers can create events.</p>';
+                            } else {
+                                content.innerHTML = `
+                                    <h2>Create New Event</h2>
+                                    <form onsubmit="createEvent(event)">
+                                        <input type="text" placeholder="Event Name" required><br><br>
+                                        <input type="date" required><br><br>
+                                        <input type="text" placeholder="Location" required><br><br>
+                                        <button type="submit">Create Event</button>
+                                    </form>
+                                `;
+                            }
+                            break;
+                        case 'about':
+                            content.innerHTML = '<h2>About Us</h2><p>We are dedicated to making event management simple and efficient.</p>';
+                            break;
+                    }
+                    content.style.opacity = 1;
+                    content.style.transform = 'translateY(0)';
+                }, 300);
+            }
+    
+            function login(event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const userType = document.getElementById('userType').value;
+    
+                // Here you would typically validate the login with a server
+                // For this example, we'll just set the user and show the main page
+                currentUser = { name: username, type: userType };
+                mainNav.style.display = 'block';
+                loadContent('home');
+            }
+    
+            function logout() {
+                currentUser = null;
+                mainNav.style.display = 'none';
+                loadContent('login');
+            }
+    
+            function registerEvent(eventName) {
+                alert(`You've registered for ${eventName}!`);
+            }
+    
+            function createEvent(event) {
+                event.preventDefault();
+                alert('Event created successfully!');
+            }
+    
+            function initializeEventCards() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                });
+    
+                document.querySelectorAll('.event-card').forEach(card => {
+                    observer.observe(card);
+                });
+            }
+    
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadContent(e.target.getAttribute('href').substring(1));
+                });
+            });
+    
+            // Load login page by default
+            loadContent('login');
+        </script>
+    </body>
+    </html>
+    
+</body>
+</html>
