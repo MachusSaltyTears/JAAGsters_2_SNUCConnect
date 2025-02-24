@@ -1,5 +1,5 @@
 # TechnicalCode
-Technical Code for SNUC Connect
+Technical Code for SNUC Connect \n
 Problem: Inefficient Event Management & Discovery System
 1)Unorganized Communication – Events are shared via WhatsApp and Outlook emails, leading to scattered information.
 2)Slow Information Spread – Messages get buried in chats or emails, making it hard for students to stay updated.
